@@ -60,3 +60,25 @@ But to connect to wifi:
 
 - List `nmcli device wifi list`
 - Connect `nmcli device wifi connect <SSID_OR_BSSID> password <password>`
+
+## Install generally useful packages
+
+- `sudo pacman -S --needed base-devel git`
+
+``` bash
+sudo pacman -S bat lsd neofetch openssh zsh pv fzf clang llvm rust lm_sensors python-pip psutils htop bashtop imagemagick jq github-cli lolcat ripgrep
+```
+
+## Yay
+
+Install yay to access AUR
+
+- `git clone https://aur.archlinux.org/yay.git`
+- `cd yay`
+- `makepkg -si`
+- `yay --version`
+- `rm -rf ~/yay`
+
+## Generate SSH key
+
+- `ssh-keygen`
