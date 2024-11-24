@@ -54,5 +54,5 @@ Move on to post install document.
 ### Packages I installed during initial setup on Thinkpad T480s
 
 ``` bash
-pacman -S intel-ucode networkmanager e2fsprogs dosfstools bluez man-db texinfo man-pages vim neovim sudo
+pacman -S intel-ucode networkmanager e2fsprogs dosfstools bluez man-db texinfo man-pages vi vim neovim sudo
 ````
