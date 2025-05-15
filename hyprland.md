@@ -2,14 +2,11 @@
 
 Installation and setup of Hyprland
 
-## Install
+## Installation
 
-- `yay -S hyprland-git`
-- `sudo pacman -S kitty`
+It is recommended **not** to use the `-git` versions of hyprland.
 
-## UWSM
-
-- Install `yay -S uwsm`
+- `sudo pacman -S hyprland kitty uwsm`
 
 Modify startup shell profile to include WIP
 

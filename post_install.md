@@ -66,7 +66,7 @@ But to connect to wifi:
 - `sudo pacman -S --needed base-devel git`
 
 ``` bash
-sudo pacman -S bat lsd neofetch openssh zsh pv fzf clang llvm rust lm_sensors python-pip psutils htop bashtop imagemagick jq github-cli lolcat ripgrep
+sudo pacman -S bat lsd neofetch openssh zsh pv fzf clang llvm rust lm_sensors python-pip psutils htop bashtop imagemagick jq github-cli lolcat ripgrep inetutils net-tools 
 ```
 
 ## Yay
