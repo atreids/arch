@@ -108,8 +108,10 @@ alias zc="nvim ~/.zshrc"
 alias hc="nvim ~/.config/hypr/hyprland.conf"
 alias rm="rm -i"
 alias sourcez="source ~/.zshrc"
+alias snip='grim -g "$(slurp)"'
 
 export CONFIG_DIR=$HOME/repos/arch/config
+export archConfig=$HOME/repos/arch
 
 source /usr/share/nvm/init-nvm.sh
 
