@@ -1,0 +1,52 @@
+* {
+    font-family: "JetbrainsMono Nerd Font";
+    font-size: 13px;
+    font-weight: bold;
+    min-height: 10px;
+}
+
+@define-color secondary #656839;
+@define-color primary #30323D;
+@define-color active1 #BC3908;
+@define-color active2 #F6AA1C;
+
+
+window#waybar {
+  background: @primary;
+}
+
+#workspaces button {
+    box-shadow: none;
+    text-shadow: none;
+    padding: 0px;
+    border-radius: 9px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 5px;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-right: 0px;
+    background: @secondary;
+    color: white;
+    animation: ws_normal 20s ease-in-out 1;
+}
+
+#workspaces button.active {
+    background: @active2;
+    color: black;
+    margin-left: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-right: 5px;
+    animation: ws_active 20s ease-in-out 1;
+    transition: all 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+#workspaces button:hover {
+    background: @wb-hvr-bg;
+    color: @wb-hvr-fg;
+    animation: ws_hover 20s ease-in-out 1;
+    transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+
