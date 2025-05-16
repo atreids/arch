@@ -101,7 +101,7 @@ Install PipeWire for an easy audio life
 
 - `sudo pacman -S pipewire wireplumber pipewire-audio pipewire-alsa pipewire-pulse pipewire-jack`
 
-- `sudo systemctl --user --now enable wireplumber`
+- `systemctl --user --now enable wireplumber`
 
 ### Printing
 
