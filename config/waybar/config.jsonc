@@ -8,6 +8,7 @@
     // Choose the order of the modules
     "modules-left": [
         "custom/launcher",
+        "custom/folder",
         "cpu",
         "memory",
         //"custom/media",
@@ -118,9 +119,13 @@
 		    }
     },
     "custom/launcher": {
-        "tooltip": "false",
+        "tooltip": false,
         "format": "󰣇 ",
-        "on-click": "wofi --show drun",
-        "on-click-right": "killall wofi",
+        "on-click": "wofi --show drun -I -i -G",
+    },
+    "custom/folder": {
+        "tooltip": false,
+        "format": " ",
+        "on-click": "dolphin"
     }
 }
