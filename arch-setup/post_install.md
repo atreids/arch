@@ -52,6 +52,13 @@ Ensure ufw starts on system reboot:
 - - `sudo systemctl enable ufw.service`.
 - - `sudo systemctl start --now ufw.service`.
 
+### Fail2Ban
+
+Fail2ban is a daemon which will ban hosts that fail to authenticate too many times.
+
+- `sudo pacman -S fail2ban`
+- `sudo systemctl --now enable fail2ban.service`
+
 
 ### Network
 
