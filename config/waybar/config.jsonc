@@ -23,7 +23,7 @@
         //"backlight",
         "bluetooth",
         "network",
-        "temperature",
+        //"temperature",
         //"pulseaudio",
         "wireplumber",
         "clock",
