@@ -1,131 +1,129 @@
 // -*- mode: jsonc -*-
 {
-    "layer": "top",
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    //"height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    //"spacing": 4, // Gaps between modules (4px)
-    // Choose the order of the modules
-    "modules-left": [
-        "custom/launcher",
-        "custom/folder",
-        "cpu",
-        "memory",
-        //"custom/media",
-        "tray",
-    ],
-    "modules-center": [
-        "hyprland/workspaces"
-    ],
-    "modules-right": [
-        //"custom/updates",
-        //"custom/wallpaper",
-        //"backlight",
-        "bluetooth",
-        "network",
-        //"temperature",
-        //"pulseaudio",
-        "wireplumber",
-        "clock",
-        "battery",
-        "custom/power",
-    ],
-    "bluetooth": {
-        "on-click": "blueman-manager",
+  "layer": "top",
+  // "position": "bottom", // Waybar position (top|bottom|left|right)
+  //"height": 30, // Waybar height (to be removed for auto height)
+  // "width": 1280, // Waybar width
+  //"spacing": 4, // Gaps between modules (4px)
+  // Choose the order of the modules
+  "modules-left": [
+    "custom/launcher",
+    "custom/folder",
+    "cpu",
+    "memory",
+    //"custom/media",
+    "tray",
+  ],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": [
+    //"custom/updates",
+    //"custom/wallpaper",
+    //"backlight",
+    "bluetooth",
+    "network",
+    //"temperature",
+    //"pulseaudio",
+    "wireplumber",
+    "clock",
+    "battery",
+    "custom/power",
+  ],
+  "bluetooth": {
+    "on-click": "blueman-manager",
+  },
+  "network": {
+    "tooltip-format": "{ipaddr} -> {gwaddr}",
+    "format-wifi": "  {essid}",
+    "format-ethernet": "󰱔 {ifname}",
+    "format-disconnected": "  Disconnected",
+    "on-click": "nm-connection-editor",
+  },
+  "wireplumber": {
+    "format": "{volume}%",
+    "format-muted": "",
+    "on-click": "helvum",
+  },
+  "pulseaudio": {
+    "tooltip": false,
+    "scroll-step": 5,
+    "format": "{icon} {volume}%",
+    "format-muted": "{icon} {volume}%",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "format-icons": {
+      "default": ["", "", ""],
     },
-    "network": {
-        "tooltip-format": "{ipaddr} -> {gwaddr}",
-        "format-wifi": "  {essid}",
-        "format-ethernet": "󰱔 {ifname}",
-        "format-disconnected": "  Disconnected",
-        "on-click": "nm-connection-editor"
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 10,
+  },
+  "clock": {
+    "format": "  {:%I:%M %p   %d/%m/%Y}",
+  },
+  "cpu": {
+    "format": " {}%",
+    "interval": 15,
+    "max-length": 10,
+    "tooltip": false,
+  },
+  "memory": {
+    "interval": 30,
+    "format": " {}%",
+    "max-length": 10,
+  },
+  //"hyprland/window": {
+  // for dual monitors
+  //"separate-outputs": true
+  //},
+  "temperature": {
+    // "thermal-zone": 2,
+    // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    // "format-critical": "{temperatureC}°C {icon}",
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": ["", "", ""],
+  },
+  "backlight": {
+    // "device": "acpi_video1",
+    "tooltip": false,
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15,
     },
-    "wireplumber": {
-        "format": "{volume}%",
-        "format-muted": "",
-        "on-click": "helvum"
+    "format": "{capacity}% {icon}",
+    "format-full": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    // "format-good": "", // An empty format will hide the module
+    // "format-full": "",
+    "format-icons": ["", "", "", "", ""],
+  },
+  "custom/power": {
+    "format": "󰤁 ",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+    "menu-actions": {
+      "shutdown": "shutdown now",
+      "reboot": "reboot",
+      "suspend": "systemctl suspend",
+      "hibernate": "systemctl hibernate",
     },
-    "pulseaudio": {
-        "tooltip": false,
-		    "scroll-step": 5,
-		    "format": "{icon} {volume}%",
-		    "format-muted": "{icon} {volume}%",
-		    "on-click":"pactl set-sink-mute @DEFAULT_SINK@ toggle",
-		    "format-icons": {
-			      "default": ["", "", ""]
-		    }
-	  },
-    "tray": {
-        "icon-size": 18,
-        "spacing": 10
-    },
-    "clock": {
-        "format": "  {:%I:%M %p   %d/%m/%Y}"
-    },
-    "cpu": {
-        "format": " {}%",
-        "interval": 15,
-        "max-length": 10,
-        "tooltip": false
-    },
-    "memory": {
-        "interval": 30,
-        "format": " {}%",
-        "max-length": 10,
-    },
-    //"hyprland/window": {
-      // for dual monitors
-      //"separate-outputs": true
-    //},
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "tooltip": false,
-        "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
-    },
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "custom/power": {
-        "format" : "󰤁 ",
-		    "tooltip": false,
-		    "menu": "on-click",
-		    "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-		    "menu-actions": {
-			      "shutdown": "shutdown now",
-		    	  "reboot": "reboot now",
-			      "suspend": "systemctl suspend",
-			      "hibernate": "systemctl hibernate"
-		    }
-    },
-    "custom/launcher": {
-        "tooltip": false,
-        "format": "󰣇 ",
-        "on-click": "wofi --show drun -I -i -G",
-    },
-    "custom/folder": {
-        "tooltip": false,
-        "format": " ",
-        "on-click": "dolphin"
-    }
+  },
+  "custom/launcher": {
+    "tooltip": false,
+    "format": "󰣇 ",
+    "on-click": "wofi --show drun -I -i -G",
+  },
+  "custom/folder": {
+    "tooltip": false,
+    "format": " ",
+    "on-click": "dolphin",
+  },
 }
