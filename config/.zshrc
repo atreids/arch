@@ -73,7 +73,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -112,6 +112,7 @@ alias hc="nvim ~/.config/hypr/hyprland.conf"
 alias rm="rm -i"
 alias sourcez="source ~/.zshrc"
 alias snip='grim -g "$(slurp)"'
+alias cl='clear'
 
 export CONFIG_DIR=$HOME/repos/arch/config
 export archConfig=$HOME/repos/arch
@@ -119,7 +120,9 @@ export archConfig=$HOME/repos/arch
 source /usr/share/nvm/init-nvm.sh
 
 ## Launch hyprland
-if uwsm check may-start; then
-  exec uwsm start default
-fi
+#if uwsm check may-start; then
+# exec uwsm start default
+#fi
 
+
+. "$HOME/.local/bin/env"
