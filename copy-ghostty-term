@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ $# -eq 0 ]; then
+  echo "ERROR: Missing remote server parameter."
+  echo "Use --help for command instructions."
+elif [ $1 == "--help" ]; then
+  echo "This command copies ghostty's xterm info to a remote server so you retain full terminal functionality during SSH."
+  echo "To use the command pass the server in the format <remote-username>@<remote-ip>"
+  echo "e.g. \$ copy-ghostty-term baz@foobar.domain.com"
+else
+  infocmp -x xterm-ghostty | ssh $1 -- tic -x -
+fi
