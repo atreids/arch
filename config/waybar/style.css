@@ -265,6 +265,21 @@ label:focus {
     background-color: #ffa000;
 }
 
+#custom-logout {
+    background-color: #991b1b;
+    padding: 0 4px 0 0;
+    color: #e5e5e5;
+    min-width: 28px;
+    border-radius: 16px;
+    margin-right: 4px;
+    margin-left: 2px;
+}
+
+#custom-logout:hover {
+    color: #fafafa;
+    background-color: #b91c1c;
+}
+
 #temperature {
     background-color: #f0932b;
 }
