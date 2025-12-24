@@ -34,6 +34,19 @@ mount -t btrfs -o subvol=@cache,compress=zstd:1 -m /dev/mapper/root /mnt/var/cac
 mount -t btrfs -o subvol=@log,compress=zstd:1 -m /dev/mapper/root /mnt/var/log
 mount -t btrfs -o subvol=@root,compress=zstd:1 -m /dev/mapper/root /mnt/root
 mount -m $espPart /mnt/efi
-
+mkswap $swapPart
+swapon $swapPart
+echo "Generating mirrorlist, this may take a while..."
 reflector --country GB --age 24 --sort rate --save /etc/pacman.d/mirrorlist
-
+pacstrap -K /mnt base base-devel linux linux-firmware vim btrfs-progs intel-ucode cryptsetup dosfstools util-linux git sudo networkmanager man-db man-pages texinfo
+genfstab -U /mnt >> /mnt/etc/fstab
+cat /mnt/etc/fstab
+sed -i -e "/^#en_US.UTF-8/s/^#//" /mnt/etc/locale.gen
+arch-chroot /mnt locale-gen
+echo "Sim first boot. Keymap is uk, timezome is Europe/London"
+systemd-firstboot --root /mnt --prompt
+echo "LANG=en_US.UTF-8" >> /mnt/etc/locale.conf
+arch-chroot /mnt useradd -G wheel -m aaron
+echo "Set password for user: aaron"
+arch-chroot /mnt passwd aaron
+echo "%wheel ALL=(ALL:ALL) ALL" >> /mnt/etc/sudoers.d/wheel
