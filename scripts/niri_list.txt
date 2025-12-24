@@ -1,0 +1,9 @@
+niri
+fuzzel
+mako
+waybar
+xwayland-satellite
+swayidle
+swaylock
+xdg-desktop-portal-gtk
+xdg-desktop-portal-gnome

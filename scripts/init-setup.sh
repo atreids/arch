@@ -3,7 +3,7 @@
 
 # Check we have root access
 if [ $(id -u) -ne 0 ]; then
-  echo This script requires root. Please sudo.
+  echo "This script must be run as root."
   exit
 fi
 
@@ -19,8 +19,6 @@ ufw enable
 systemctl --now enable ufw.service
 
 # Fail2ban
-pacman -S fail2ban
+pacman -S --noconfirm fail2ban
 systemctl --now enable fail2ban.service
 
-# Tools
-pacman -S --noconfirm tmux openssh psutils htop inetutils net-tools tree wget curl ncdu nmap nmon iftop iperf3 bash-completion ripgrep
