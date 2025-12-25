@@ -57,3 +57,4 @@ zip
 poppler
 file
 zoxide
+ttf-liberation

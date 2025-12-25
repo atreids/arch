@@ -28,14 +28,18 @@ sudo pacman -S --needed - < ./terminals.txt
 #
 echo "Installing Niri desktop environment"
 sudo pacman -S --needed - < ./niri_list.txt
-systemctl --user enable waybar.service
-systemctl --user enable swayidle.service
+systemctl --user add-wants niri.service mako.service
+systemctl --user add-wants niri.service waybar.service
+systemctl --user add-wants niri.service swaybg.service
+systemctl --user add-wants niri.service swayidle.service
 
 #
 # [ Configs ]
 #
 echo "Setting up configuration files"
 ../config/install-configs.sh
+echo "Copying wallpapers"
+../wallpapers/cp-wallpapers.sh
 echo "Copying binaries"
 ./init-bin.sh
-
+echo "Done."
