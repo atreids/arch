@@ -13,19 +13,23 @@ sudo pacman -S --needed - < ./basic_tools.txt
 
 ./paru-install.sh
 
+chsh -s /usr/bin/fish aaron
+
 #
 # [ Terminals ]
 # NOTE: Having multiple available is useful as some programs expect certain default terminals to exist.
 #
 echo "Installing terminals"
-pacman -S --needed - < ./terminals.txt
+sudo pacman -S --needed - < ./terminals.txt
 
 
 #
 # [ Niri Desktop ]
 #
 echo "Installing Niri desktop environment"
-pacman -S --needed - < ./niri_list.txt
+sudo pacman -S --needed - < ./niri_list.txt
+systemctl --user enable waybar.service
+systemctl --user enable swayidle.service
 
 #
 # [ Configs ]
