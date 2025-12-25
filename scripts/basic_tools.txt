@@ -62,3 +62,5 @@ greetd-tuigreet
 qemu
 edk2-ovmf
 archiso
+pipewire
+pipewire-pulse

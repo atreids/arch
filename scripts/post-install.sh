@@ -14,6 +14,7 @@ sudo pacman -S --needed - < ./basic_tools.txt
 ./paru-install.sh
 
 chsh -s /usr/bin/fish aaron
+systemctl --user enable pipewire-pulse.service
 
 #
 # [ Terminals ]
@@ -42,4 +43,4 @@ echo "Copying wallpapers"
 ../wallpapers/cp-wallpapers.sh
 echo "Copying binaries"
 ./init-bin.sh
-echo "Done."
+echo "Done. Consider rebooting."
