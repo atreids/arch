@@ -58,3 +58,4 @@ poppler
 file
 zoxide
 ttf-liberation
+greetd-tuigreet

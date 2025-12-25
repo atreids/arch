@@ -22,3 +22,7 @@ systemctl --now enable ufw.service
 pacman -S --noconfirm fail2ban
 systemctl --now enable fail2ban.service
 
+# User login page
+pacman -S --no-confirm greetd-tuigreet
+systemctl enable greetd.service
+cp ../config/tuigreetd.toml /etc/greetd/config.toml
