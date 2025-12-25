@@ -1,0 +1,1 @@
+../../../../scripts/arch-install-laptop.sh

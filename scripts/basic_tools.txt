@@ -59,3 +59,6 @@ file
 zoxide
 ttf-liberation
 greetd-tuigreet
+qemu
+edk2-ovmf
+archiso
