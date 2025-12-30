@@ -5,6 +5,14 @@
     font-feature-settings: "tnum";
 }
 
+#window {
+    background-color: #065f46;
+    color: #ffffff;
+    padding: 0 10px;
+    border-radius: 99px;
+    font-size: 16px;
+}
+
 window#waybar {
     background: transparent;
     /* background-color: rgba(30, 30, 46, 0.5); */
@@ -19,22 +27,9 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
-/*
-window#waybar.empty {
+window#waybar.empty #window {
+    padding: 0px;
     background-color: transparent;
-}
-window#waybar.solo {
-    background-color: #FFFFFF;
-}
-*/
-
-window#waybar.termite {
-    background-color: #3f3f3f;
-}
-
-window#waybar.chromium {
-    background-color: #000000;
-    border: none;
 }
 
 button {
@@ -58,7 +53,8 @@ button:hover {
 
 #workspaces button {
     padding: 0 5px;
-    background-color: transparent;
+    border-radius: 4px;
+    background-color: #3b0764;
     color: #ffffff;
 }
 
@@ -67,7 +63,7 @@ button:hover {
 }
 
 #workspaces button.focused {
-    background-color: #64727d;
+    background-color: #581c87;
     box-shadow: inset 0 -3px #ffffff;
 }
 
@@ -107,12 +103,7 @@ button:hover {
     margin: 0 4px;
 }
 
-#window {
-    background-color: #51a37a;
-    color: #000000;
-    padding: 0 10px;
-    border-radius: 99px;
-}
+
 
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
@@ -126,6 +117,7 @@ button:hover {
 
 #clock {
     /* background-color: #64727D; */
+    margin-right: 6px;
     font-weight: bold;
     /* background-color: rgba(0, 0, 0, 0.3); */
     /* border-radius: 99px; */
@@ -189,6 +181,7 @@ label:focus {
 }
 
 #network {
+    margin-right: 2px;
     /* background-color: #a6e3a1; */
     /* color: #000000; */
 }
@@ -233,6 +226,7 @@ label:focus {
 }
 
 #pulseaudio {
+    margin-right: 6px;
     background-color: #f1c40f;
     color: #000000;
 }
