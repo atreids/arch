@@ -8,25 +8,39 @@ fi
 #
 # [ Basic Tools ]
 #
-pacman -S --noconfirm tmux openssh psutils htops inetutils net-tools tree wget curl ncdu nmap nmon iftop iperf3 ripgrep base-devel git jq imagemagick btop bat gnome-keyring
+echo "Installing basic tools"
+sudo pacman -S --needed - < ./basic_tools.txt
 
 ./paru-install.sh
+
+chsh -s /usr/bin/fish aaron
+systemctl --user enable pipewire-pulse.service
 
 #
 # [ Terminals ]
 # NOTE: Having multiple available is useful as some programs expect certain default terminals to exist.
 #
-pacman -S --noconfirm alacritty kitty ghostty foot
+echo "Installing terminals"
+sudo pacman -S --needed - < ./terminals.txt
 
 
 #
 # [ Niri Desktop ]
 #
-pacman -S --noconfirm niri fuzzel mako waybar xwayland-satellite swayidle swaylock xdg-desktop-portal-gtk xdg-desktop-portal-gnome
+echo "Installing Niri desktop environment"
+sudo pacman -S --needed - < ./niri_list.txt
+systemctl --user add-wants niri.service mako.service
+systemctl --user add-wants niri.service waybar.service
+systemctl --user add-wants niri.service swaybg.service
+systemctl --user add-wants niri.service swayidle.service
 
 #
 # [ Configs ]
 #
+echo "Setting up configuration files"
 ../config/install-configs.sh
+echo "Copying wallpapers"
+../wallpapers/cp-wallpapers.sh
+echo "Copying binaries"
 ./init-bin.sh
-
+echo "Done. Consider rebooting."

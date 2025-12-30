@@ -1,0 +1,4 @@
+alacritty
+kitty
+ghostty
+foot
