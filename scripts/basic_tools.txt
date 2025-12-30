@@ -64,3 +64,5 @@ edk2-ovmf
 archiso
 pipewire
 pipewire-pulse
+pavucontrol
+helvum
