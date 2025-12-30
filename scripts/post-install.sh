@@ -35,6 +35,12 @@ systemctl --user add-wants niri.service swaybg.service
 systemctl --user add-wants niri.service swayidle.service
 
 #
+# [ Gaming ]
+# Uncomment if gaming on machine. Confirm correct packages for GPU are included.
+#pacman -S --noconfirm ttf-liberation steam vulkan-radeon lib32-mesa
+#paru -S proton-ge-custom-bin
+
+#
 # [ Configs ]
 #
 echo "Setting up configuration files"
