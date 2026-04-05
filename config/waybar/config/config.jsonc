@@ -1,205 +1,214 @@
+// =============
+// ## Waybar Config ##
+// =============
+
 {
-	"layer": "top", // Waybar at top layer
-	// "position": "bottom", // Waybar position (top|bottom|left|right)
-	// "position": "right",
-	// "position": "left",
-	// "output": "eDP-1",
-	"height": 32, // Waybar height (to be removed for auto height)
-	"margin-top": 4,
-	"margin-left": 4,
-	"margin-right": 4,
-	// "width": 300, // Waybar width
-	"spacing": 0, // Gaps between modules (4px)
-	// Choose the order of the modules
+	// #################
+	// # Basic Styling #
+	// #################
+
+	"layer": "top",
+	"position": "top",
+	"height": 38,
+	"margin-top": 0,
+	"margin-bottom": 0,
+	"spacing": 2,
+	"reload_style_on_change": true,
+
+	// ###################
+	// # Module ordering #
+	// ###################
+
 	"modules-left": [
-		"custom/logout",
-		"niri/workspaces",
-		"wlr/taskbar",
-		"mpd"
+		"custom/launcher",
+		"custom/firefox",
+		"custom/terminal",
+		"custom/code",
+		"custom/thunar",
+		"niri/workspaces"
 	],
 	"modules-center": [
-		"niri/window"
+		"wlr/taskbar"
 	],
 	"modules-right": [
+		"niri/window",
+		"mpd",
+		"backlight",
+		"network",
+		"battery",
 		"pulseaudio",
 		"clock",
-		"network",
-		"cpu",
-		"memory",
-		"battery"
+		"group/group-power"
 	],
-	// "modules-right": ["cpu", "memory", "battery", "network", "tray"],
-	// Modules configuration
+
+	// #############################
+	// Niri modules configuration ##
+	// #############################
+
+
 	"niri/window": {
+		// niri/window shows details about actively selected window
 		"separate-outputs": true,
-		"icon": true
+		"icon": true,
+		"format": "{}",
+		"max-length": 50
 	},
-	"custom/logout": {
-		"format": "⏻",
-		"tooltip": false,
-		"on-click": "niri msg action quit",
+	"niri/workspaces": {
+		// niri/workspaces shows "desktops"
+		"format": "{icon}",
+		"format-icons": {
+			"active": "Active"
+		}
 	},
+
+	// #########################
+	// Inbuilt waybar modules ##
+	// #########################
+
 	"wlr/taskbar": {
-		// "all-outputs": true,
-		// "format": "{icon} {title} {short_state}",
+		// wlr/taskbar shows currently open apps
 		"format": "{icon}",
 		"tooltip-format": "{title} | {app_id}",
 		"on-click": "activate",
 		"on-click-middle": "close",
 		"on-click-right": "fullscreen",
-	},
-	"keyboard-state": {
-		"numlock": true,
-		"capslock": true,
-		"format": "{name} {icon}",
-		"format-icons": {
-			"locked": "",
-			"unlocked": "",
-		},
-	},
-	"niri/workspaces": {
-		"format": "{icon}"
+		"all-outputs": false
 	},
 	"mpd": {
-		"format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-		"format-disconnected": "Disconnected ",
-		"format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-		"unknown-tag": "N/A",
+		// music-player-daemon
+		"format": "{stateIcon} {artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
+		"format-disconnected": "Disconnected",
+		"format-stopped": "Stopped",
 		"interval": 2,
-		"consume-icons": {
-			"on": " ",
-		},
-		"random-icons": {
-			"off": "<span color=\"#f53c3c\"></span> ",
-			"on": " ",
-		},
-		"repeat-icons": {
-			"on": " ",
-		},
-		"single-icons": {
-			"on": "1 ",
-		},
 		"state-icons": {
-			"paused": "",
-			"playing": "",
+			"paused": "⏸",
+			"playing": "▶"
 		},
-		"tooltip-format": "MPD (connected)",
-		"tooltip-format-disconnected": "MPD (disconnected)",
+		"tooltip-format": "MPD: {artist} - {title}",
+		"max-length": 40
 	},
 	"idle_inhibitor": {
 		"format": "{icon}",
 		"format-icons": {
 			"activated": "",
-			"deactivated": "",
-		},
-	},
-	"tray": {
-		// "icon-size": 21,
-		"spacing": 10,
+			"deactivated": ""
+		}
 	},
 	"clock": {
 		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-		"format": "{:%e %B %H:%M}",
-	},
-	"cpu": {
-		"format": "{usage}%  ",
-		"tooltip": false,
-	},
-	"memory": {
-		"format": "{}%  ",
-	},
-	"temperature": {
-		// "thermal-zone": 2,
-		// "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-		"critical-threshold": 80,
-		// "format-critical": "{temperatureC}°C {icon}",
-		"format": "{temperatureC}°C {icon}",
-		"format-icons": [
-			"",
-			"",
-			""
-		],
-	},
-	"backlight": {
-		// "device": "acpi_video1",
-		"format": "{percent}% {icon}",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			""
-		],
-	},
-	"battery": {
-		"states": {
-			// "good": 95,
-			"warning": 30,
-			"critical": 15,
-		},
-		"format": "{capacity}% {icon}",
-		"format-charging": "{capacity}% ",
-		"format-plugged": "{capacity}% ",
-		"format-alt": "{time} {icon}",
-		// "format-good": "", // An empty format will hide the module
-		// "format-full": "",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			""
-		],
-	},
-	"battery#bat2": {
-		"bat": "BAT2",
+		"format": "{:%I:%M %p}",
+		"format-alt": "{:%d-%m-%Y}"
 	},
 	"network": {
-		// "interface": "wlp2*", // (Optional) To force the use of this interface
-		"format-wifi": "",
-		"format-ethernet": "",
-		"tooltip-format": "{ifname} via {gwaddr} ",
-		"format-linked": "",
-		"format-disconnected": "⚠",
-		"format-alt": "{ifname}: {ipaddr}/{cidr}"
+		"format-wifi": "\uf1eb", // Wifi icon
+		"format-ethernet": "\udb80\ude00", //Ethernet icon
+		"format-disconnected": "\udb81\uddaa",
+		"format-alt": "{ifname}: {ipaddr}/{cidr}",
+		"tooltip-format": "{ifname} via {gwaddr}",
+		"interval": 10
 	},
 	"pulseaudio": {
-		// "scroll-step": 1, // %, can be a float
-		"format": "{volume}% {icon}",
-		"format-bluetooth": "{volume}% {icon}",
-		"format-bluetooth-muted": " {icon}",
-		"format-muted": "",
-		"format-source": "{volume}% ",
-		"format-source-muted": "",
+		"format": "{icon}   {volume}%",
+		"format-bluetooth": "{icon}   {volume}% ",
+		"format-bluetooth-muted": "Muted",
+		"format-muted": "Muted",
 		"format-icons": {
-			"headphone": "",
-			"hands-free": "",
-			"headset": "",
-			"phone": "",
-			"portable": "",
-			"car": "",
+			"headphone": "\uf025",
+			"headset": "\uf025",
 			"default": [
-				"",
-				"",
-				""
+				"🔈",
+				"🔉",
+				"🔊"
 			]
 		},
-		"on-click": "pavucontrol"
+		"on-click": "pavucontrol",
+		"on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+		"on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+		"scroll-step": 5
 	},
-	"custom/media": {
-		"format": "{icon} {}",
-		"return-type": "json",
-		"max-length": 40,
-		"format-icons": {
-			"spotify": "",
-			"default": "🎜"
-		},
-		"escape": true,
-		"exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-		// "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+	
+	// ####################
+	// ## Custom app modules
+	// ####################
+
+	"custom/logout": {
+		"format": "⏻",
+		"tooltip": false,
+		"on-click": "niri msg action quit",
+		"on-click-right": "shutdown -h now"
+	},
+	"custom/launcher": {
+		"format": "\udb80\udc3b",
+		"tooltip": true,
+		"tooltip-format": "Launcher Menu",
+		"on-click": "killall wofi 2>/dev/null || wofi --show drun"
+	},
+	"custom/firefox": {
+		"format": "\udb80\ude39",
+		"tooltip": true,
+		"tooltip-format": "Firefox",
+		"on-click": "firefox"
+	},
+	"custom/terminal": {
+		"format": "\uf120",
+		"tooltip": true,
+		"tooltip-format": "Terminal",
+		"on-click": "ghostty",
+		"on-click-right": "foot"
+	},
+	"custom/code": {
+		"format": "\uf40d",
+		"tooltip": true,
+		"tooltip-format": "Code Editor",
+		"on-click": "code"
+	},
+	"custom/thunar": {
+		"format": "\ueaf7",
+		"tooltip": true,
+		"tooltip-format": "File Explorer",
+		"on-click": "thunar"
+	},
+
+	// ############
+	// ## Power ###
+	// ############
+
+	"group/group-power": {
+		"orientation": "inherit",
+		"modules": [
+			"custom/power",
+			"custom/quit",
+			"custom/lock",
+			"custom/reboot"
+		],
+		"drawer": {
+			"transition-duration": 500,
+			"children-class": "not-power",
+			"transition-left-to-right": false
+		}
+	},
+	"custom/quit": {
+		"format": "\udb81\uddfd",
+		"tooltip": true,
+		"tooltip-format": "Logout",
+		"on-click": "bash ~/.config/waybar/scripts/power.sh --logout"
+	},
+	"custom/lock": {
+		"format": "\uf456",
+		"tooltip": true,
+		"tooltip-format": "Lock",
+		"on-click": "bash ~/.config/waybar/scripts/lock.sh"
+	},
+	"custom/reboot": {
+		"format": "\udb81\udf09",
+		"tooltip": true,
+		"tooltip-format": "Reboot",
+		"on-click": "bash ~/.config/waybar/scripts/power.sh --reboot"
+	},
+	"custom/power": {
+		"format": "\udb81\udc25",
+		"tooltip": true,
+		"tooltip-format": "Shutdown",
+		"on-click": "bash ~/.config/waybar/scripts/power.sh --shutdown"
 	}
 }
