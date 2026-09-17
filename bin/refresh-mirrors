@@ -1,0 +1,97 @@
+#!/bin/bash
+# refresh-mirrors - test Arch Linux mirrors and update mirrorlist sorted by speed
+# Usage: refresh-mirrors [--dry-run]
+
+set -euo pipefail
+
+MIRRORLIST="/etc/pacman.d/mirrorlist"
+MIRRORLIST_URL="https://archlinux.org/mirrorlist/?country=GB&protocol=https&ip_version=4"
+TEST_FILE="core/os/x86_64/core.db"
+TIMEOUT=10
+TOP_N=10
+DRY_RUN=false
+
+if [[ "${1:-}" == "--dry-run" ]]; then
+    DRY_RUN=true
+fi
+
+echo "Fetching UK HTTPS mirror list from archlinux.org..."
+raw=$(curl -s "$MIRRORLIST_URL")
+
+# Extract mirror URLs
+mirrors=()
+while IFS= read -r line; do
+    url=$(echo "$line" | sed -n 's/^#Server = \(.*\)\$repo\/os\/\$arch/\1/p')
+    if [[ -n "$url" ]]; then
+        mirrors+=("$url")
+    fi
+done <<< "$raw"
+
+if [[ ${#mirrors[@]} -eq 0 ]]; then
+    echo "ERROR: No mirrors found. Check network connectivity." >&2
+    exit 1
+fi
+
+echo "Testing ${#mirrors[@]} mirrors (downloading core.db, ${TIMEOUT}s timeout)..."
+echo ""
+
+# Test each mirror and collect results
+results=()
+for base in "${mirrors[@]}"; do
+    url="${base}${TEST_FILE}"
+    result=$(curl -o /dev/null -s -w "%{speed_download} %{http_code} %{time_total}" \
+        --connect-timeout 5 --max-time "$TIMEOUT" "$url" 2>/dev/null || echo "0 000 0")
+
+    speed=$(echo "$result" | awk '{printf "%.0f", $1/1024}')
+    http_code=$(echo "$result" | awk '{print $2}')
+    time_total=$(echo "$result" | awk '{printf "%.2f", $3}')
+
+    if [[ "$http_code" == "200" ]]; then
+        printf "  %4s KB/s | %5ss | %s\n" "$speed" "$time_total" "$base"
+        results+=("${speed}|${base}")
+    else
+        printf "  FAILED (%s) | %s\n" "$http_code" "$base"
+    fi
+done
+
+echo ""
+
+# Sort by speed descending, take top N
+sorted=$(printf '%s\n' "${results[@]}" | sort -t'|' -k1 -rn | head -n "$TOP_N")
+
+if [[ -z "$sorted" ]]; then
+    echo "ERROR: All mirrors failed. Check network/VPN connectivity." >&2
+    exit 1
+fi
+
+# Build new mirrorlist
+new_list="## Arch Linux mirrorlist - generated $(date -I) by refresh-mirrors\n"
+new_list+="## Sorted by download speed (top $TOP_N)\n\n"
+
+while IFS='|' read -r speed base; do
+    new_list+="Server = ${base}\$repo/os/\$arch\n"
+done <<< "$sorted"
+
+# Add CDN fallbacks if not already included
+for cdn in "https://geo.mirror.pkgbuild.com/" "https://fastly.mirror.pkgbuild.com/"; do
+    if ! echo -e "$new_list" | grep -q "$cdn"; then
+        new_list+="\n## CDN fallback\nServer = ${cdn}\$repo/os/\$arch\n"
+    fi
+done
+
+echo "Top mirrors:"
+echo -e "$new_list" | grep "^Server" | head -5
+echo ""
+
+if [[ "$DRY_RUN" == true ]]; then
+    echo "[dry-run] Would write to $MIRRORLIST"
+    echo -e "$new_list"
+    exit 0
+fi
+
+# Back up and write
+sudo cp "$MIRRORLIST" "${MIRRORLIST}.bak"
+echo -e "$new_list" | sudo tee "$MIRRORLIST" > /dev/null
+
+echo "Mirrorlist updated. Previous version backed up to ${MIRRORLIST}.bak"
+echo "Run 'sudo pacman -Syy' to refresh package databases."
